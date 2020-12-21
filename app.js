@@ -43,7 +43,7 @@ class Dino {
             const diff = h1 - h2;
             const high = Math.floor(diff / 100);
             let res = high + 'm';
-            if (diff > height) {
+            if (diff > high) {
                 res += ' ' + Math.floor(diff % 100) + 'cm';
             }
             return res;
