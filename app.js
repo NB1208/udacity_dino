@@ -2,15 +2,14 @@ const dinos = [];
 let dinoReady = false;
 
 const facts = [
-    "weight",
-    "height",
-    "diet",
-    "where",
-    "when",
-    "fact",
+    'weight',
+    'height',
+    'diet',
+    'where',
+    'when',
+    'fact',
 ];
 
-// Create Dino Constructor
 class Dino {
     species = '';
     weight = 0;
@@ -22,6 +21,7 @@ class Dino {
     constructor(data) {
         Object.assign(this, data);
     }
+
     getImage() {
         return `/images/${this.species.toLowerCase() || 'pigeon'}.png`;
     }
@@ -53,7 +53,16 @@ class Dino {
         } else if (human.height < height) {
             return `Height ${diffText(height, human.height)} less`;
         } else {
-            return 'Height is equals';
+            return 'Height is equal';
+        }
+    }
+
+    compareDiet(human) {
+        console.log(this.diet, human.diet);
+        if (this.diet === human.diet) {
+            return 'Diet is equal';
+        } else {
+            return 'Diet: ' + this.diet + ' vs ' + human.diet;
         }
     }
 
@@ -80,38 +89,35 @@ class Dino {
         div.append(img);
 
         const p = document.createElement('p');
+        p.innerHTML = this.getFactText(fact, human);
 
-        if (this.species === 'Pigeon') {
-            p.innerHTML = this.fact;
-        } else {
-            switch (fact) {
-                case "weight":
-                    p.innerHTML = this.compareWeight(human);
-                    break;
-                case "height":
-                    p.innerHTML = this.compareHeight(human);
-                    break;
-                case "diet":
-                    p.innerHTML = 'Diet: ' + this.diet + ' vs ' + human.diet;
-                    break;
-                case "where":
-                    p.innerHTML = 'Living where: ' + this.where;
-                    break;
-                case "when":
-                    p.innerHTML = 'Living when: ' + this.when;
-                    break;
-                case "fact":
-                    p.innerHTML = this.fact;
-                    break;
-            }
-        }
         div.append(p);
        return div;
     }
+
+    getFactText(fact, human) {
+        if (this.species === 'Pigeon') {
+            return this.fact;
+        } else {
+            switch (fact) {
+                case 'weight':
+                    return this.compareWeight(human);
+                case 'height':
+                    return this.compareHeight(human);
+                case 'diet':
+                    return this.compareDiet(human);
+                case 'where':
+                    return 'Living where: ' + this.where;
+                case 'when':
+                    return 'Living when: ' + this.when;
+                default:
+                    return this.fact;
+            }
+        }
+    }
 }
 
-// Create Dino Objects
-fetch("./dino.json").then((res) => {
+fetch('./dino.json').then((res) => {
 
     if (res.status !== 200) {
         console.error('dino fetch error', res.statusText);
@@ -143,16 +149,16 @@ fetch("./dino.json").then((res) => {
     console.log('fetch error', err);
 });
 
-// Create Human Object
+
 class Human {
     name = '';
     weight = 0;
     height = 0;
-    diet = document.getElementById("diet").value.toLowerCase();
+    diet = document.getElementById('diet').value.toLowerCase();
     constructor() {
     }
     getImage() {
-        return "/images/human.png";
+        return '/images/human.png';
     }
     setData(name, value) {
         this[name] = value;
@@ -183,41 +189,30 @@ class Human {
 
 const human = new Human();
 
-// Use IIFE to get human data from form
 (function getHumanData() {
-    document.getElementById("name").addEventListener("change", (element) => {
-        human.setData("name", element.target.value);
+    document.getElementById('name').addEventListener('change', (element) => {
+        human.setData('name', element.target.value);
     });
 
-    document.getElementById("weight").addEventListener("change", (element) => {
-        human.setData("weight", parseInt(element.target.value, 10));
+    document.getElementById('weight').addEventListener('change', (element) => {
+        human.setData('weight', parseInt(element.target.value, 10));
     });
 
-    document.getElementById("meters").addEventListener("change", (element) => {
-        human.setData("height", (
+    document.getElementById('meters').addEventListener('change', (element) => {
+        human.setData('height', (
             parseInt(element.target.value, 10) * 100
-            + parseInt(document.getElementById("centimeter").value, 10)) || 0);
+            + parseInt(document.getElementById('centimeter').value, 10)) || 0);
     });
 
-    document.getElementById("centimeter").addEventListener("change", (element) => {
-        human.setData("height",
-            (parseInt(element.target.value, 10) || 0) + (parseInt(document.getElementById("meters").value, 10) || 0) * 100);
+    document.getElementById('centimeter').addEventListener('change', (element) => {
+        human.setData('height',
+            (parseInt(element.target.value, 10) || 0) + (parseInt(document.getElementById('meters').value, 10) || 0) * 100);
     });
 
-    document.getElementById("diet").addEventListener("change", (element) => {
-        human.setData("diet", element.target.value);
+    document.getElementById('diet').addEventListener('change', (element) => {
+        human.setData('diet', element.target.value.toLowerCase());
     });
 })();
-
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
-// Create Dino Compare Method 2
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
-// Create Dino Compare Method 3
-// NOTE: Weight in JSON file is in lbs, height in inches.
-
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -231,7 +226,6 @@ function shuffle(array) {
     return array;
   }
 
-// Generate Tiles for each Dino in Array
 document.getElementById('btn').addEventListener('click', () => {
 
     if (!human.check()) {
@@ -248,19 +242,19 @@ document.getElementById('btn').addEventListener('click', () => {
     grid.innerHTML = '';
 
     document.getElementById('dino-compare').style.display = 'none';
+    document.getElementById('btn-again').style.display = 'inline-block';
     shuffle(dinos).forEach((dino, key) => {
 
         if (key === 4) {
             grid.append(human.getTile());
         }
-
         grid.append(dino.getTile(facts[Math.floor(Math.random() * Math.floor(5))], human));
     })
 
 });
 
-// Add tiles to DOM
-
-// Remove form from screen
-
-// On button click, prepare and display infographic
+document.getElementById('btn-again').addEventListener('click', () => {
+    document.getElementById('dino-compare').style.display = 'inline-block';
+    document.getElementById('btn-again').style.display = 'none';
+    grid.innerHTML = '';
+});

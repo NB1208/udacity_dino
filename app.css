@@ -153,6 +153,7 @@ select {
     display: block;
 }
 
+#btn-again,
 #btn {
     display: inline-block;
     background: #ccc;
@@ -161,6 +162,11 @@ select {
     transition: ease 0.3s all;
 }
 
+#btn-again {
+    display: none;
+}
+
+#btn-again:hover,
 #btn:hover {
     background: #777;
     color: #fff;
