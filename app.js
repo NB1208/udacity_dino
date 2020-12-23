@@ -26,6 +26,12 @@ class Dino {
         return `/images/${this.species.toLowerCase() || 'pigeon'}.png`;
     }
 
+/**
+* @description - Represents weights comparison
+* @constructor
+* @param human - object human
+* @returns - Returns result of comparison of the weight between the object human and object dino converted to kg
+*/
     compareWeight(human) {
         const weight = this.getWeightInKg();
         if (human.weight > weight) {
@@ -37,6 +43,12 @@ class Dino {
         }
     }
 
+/**
+* @description - Represents heights comparison
+* @constructor
+* @param human - object human
+* @returns - Returns result of comparison of the height between the object human and object dino
+*/
     compareHeight(human) {
         const height = this.getHeigtInCm();
         const diffText = (h1, h2) => {
@@ -57,6 +69,12 @@ class Dino {
         }
     }
 
+/**
+* @description - Represents diet comparison
+* @constructor
+* @param human - object human
+* @returns - Returns result of comparison of the diet between the object human and object dino
+*/
     compareDiet(human) {
         console.log(this.diet, human.diet);
         if (this.diet === human.diet) {
@@ -148,7 +166,6 @@ fetch('./dino.json').then((res) => {
 }, (err) => {
     console.log('fetch error', err);
 });
-
 
 class Human {
     name = '';
