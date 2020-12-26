@@ -26,12 +26,12 @@ class Dino {
         return `/images/${this.species.toLowerCase() || 'pigeon'}.png`;
     }
 
-/**
-* @description - Represents weights comparison
-* @constructor
-* @param human - object human
-* @returns - Returns result of comparison of the weight between the object human and object dino converted to kg
-*/
+    /**
+     * @description - Represents weights comparison
+     * @constructor
+     * @param human - object human
+     * @returns - Returns result of comparison of the weight between the object human and object dino converted to kg
+     */
     compareWeight(human) {
         const weight = this.getWeightInKg();
         if (human.weight > weight) {
@@ -43,12 +43,12 @@ class Dino {
         }
     }
 
-/**
-* @description - Represents heights comparison
-* @constructor
-* @param human - object human
-* @returns - Returns result of comparison of the height between the object human and object dino
-*/
+    /**
+     * @description - Represents heights comparison
+     * @constructor
+     * @param human - object human
+     * @returns - Returns result of comparison of the height between the object human and object dino
+     */
     compareHeight(human) {
         const height = this.getHeigtInCm();
         const diffText = (h1, h2) => {
@@ -69,12 +69,12 @@ class Dino {
         }
     }
 
-/**
-* @description - Represents diet comparison
-* @constructor
-* @param human - object human
-* @returns - Returns result of comparison of the diet between the object human and object dino
-*/
+    /**
+     * @description - Represents diet comparison
+     * @constructor
+     * @param human - object human
+     * @returns - Returns result of comparison of the diet between the object human and object dino
+     */
     compareDiet(human) {
         console.log(this.diet, human.diet);
         if (this.diet === human.diet) {
@@ -110,7 +110,7 @@ class Dino {
         p.innerHTML = this.getFactText(fact, human);
 
         div.append(p);
-       return div;
+        return div;
     }
 
     getFactText(fact, human) {
@@ -167,13 +167,18 @@ fetch('./dino.json').then((res) => {
     console.log('fetch error', err);
 });
 
+/**
+ * @description - Represents class Human with methods getImage to have the image, setData to set the values into the class and getTile to set the human tile in the middle
+ * @constructor
+ * @param
+ * @returns
+ */
 class Human {
     name = '';
     weight = 0;
     height = 0;
     diet = document.getElementById('diet').value.toLowerCase();
-    constructor() {
-    }
+    constructor() {}
     getImage() {
         return '/images/human.png';
     }
@@ -206,6 +211,12 @@ class Human {
 
 const human = new Human();
 
+/**
+  * @description - Represents collected data from the form
+  * @constructor
+  * @param
+  * @returns - collects the data from the form and adds to the object to use for comparison
+  */
 (function getHumanData() {
     document.getElementById('name').addEventListener('change', (element) => {
         human.setData('name', element.target.value);
@@ -217,8 +228,8 @@ const human = new Human();
 
     document.getElementById('meters').addEventListener('change', (element) => {
         human.setData('height', (
-            parseInt(element.target.value, 10) * 100
-            + parseInt(document.getElementById('centimeter').value, 10)) || 0);
+            parseInt(element.target.value, 10) * 100 +
+            parseInt(document.getElementById('centimeter').value, 10)) || 0);
     });
 
     document.getElementById('centimeter').addEventListener('change', (element) => {
@@ -232,16 +243,17 @@ const human = new Human();
 })();
 
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length,
+        temporaryValue, randomIndex;
     while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
     return array;
-  }
+}
 
 document.getElementById('btn').addEventListener('click', () => {
 
